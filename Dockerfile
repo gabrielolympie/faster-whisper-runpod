@@ -1,3 +1,4 @@
+# Use an official Python runtime as a parent image
 # Use specific version of nvidia cuda image
 FROM nvidia/cuda:11.7.1-cudnn8-runtime-ubuntu20.04
 
@@ -8,10 +9,6 @@ RUN rm -f /etc/apt/sources.list.d/*.list
 SHELL ["/bin/bash", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
-
-# Set the working directory in the container to /app
-WORKDIR /app
-COPY . /app
 
 
 # Update and upgrade the system packages (Worker Template)
@@ -36,6 +33,11 @@ RUN add-apt-repository ppa:deadsnakes/ppa -y && \
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     python get-pip.py && \
     rm get-pip.py
+
+
+# Set the working directory in the container to /app
+WORKDIR /app
+COPY . /app
 
 ## Installation
 RUN pip install --no-cache-dir -r requirements.txt

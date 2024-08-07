@@ -32,7 +32,7 @@ def get_audio_metadata(job):
     if device=="GPU":
         model = faster_whisper.WhisperModel(model_size, download_root=model_path, device='cuda', compute_type="int8_float16")
     else:
-        model = faster_whisper.WhisperModel(model_size, download_root=model_path, device='cpu')
+        model = faster_whisper.WhisperModel(model_size, download_root=model_path, device='cpu', compute_type="int8")
 
     
     segments, info = model.transcribe(
