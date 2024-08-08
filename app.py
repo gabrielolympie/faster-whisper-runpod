@@ -11,8 +11,6 @@ import os
 
 load_dotenv()
 
-model_path=os.getenv('MODEL_DIR')
-
 whisper_models = {
     # "CPU":{
     #     "base" : faster_whisper.WhisperModel("base", device='cpu', compute_type="int8"),
