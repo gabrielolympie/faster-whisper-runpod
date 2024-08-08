@@ -3,7 +3,7 @@ name: ci
 on:
   push:
     branches:
-      - "main"
+      - "gpu"
 
 jobs:
   docker:
@@ -28,5 +28,5 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/runpod-faster-whisper:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/runpod-faster-whisper-gpu:latest
           push: true
