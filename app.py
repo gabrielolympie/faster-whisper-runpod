@@ -46,7 +46,7 @@ def get_audio_metadata(job):
         start_min, start_sec = divmod(segment.start, 60)
         end_min, end_sec = divmod(segment.end, 60)
         t = "%d:%05.2f -> %d:%05.2f ->%s" % (start_min, start_sec, end_min, end_sec, segment.text)
-        yield {'output':t}
+        yield t
 
 runpod.serverless.start(
     {
