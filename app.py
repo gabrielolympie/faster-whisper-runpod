@@ -14,11 +14,11 @@ load_dotenv()
 model_path=os.getenv('MODEL_DIR')
 
 whisper_models = {
-    "CPU":{
-        "base" : faster_whisper.WhisperModel("base", device='cpu', compute_type="int8"),
-        "medium" : faster_whisper.WhisperModel("medium", device='cpu', compute_type="int8"),
-        "large" : faster_whisper.WhisperModel("large-v3", device='cpu', compute_type="int8")
-    },
+    # "CPU":{
+    #     "base" : faster_whisper.WhisperModel("base", device='cpu', compute_type="int8"),
+    #     "medium" : faster_whisper.WhisperModel("medium", device='cpu', compute_type="int8"),
+    #     "large" : faster_whisper.WhisperModel("large-v3", device='cpu', compute_type="int8")
+    # },
     "GPU":{
         "base" : faster_whisper.WhisperModel("base", device='cuda', compute_type="int8_float16"),
         "medium" : faster_whisper.WhisperModel("medium", device='cuda', compute_type="int8_float16"),
