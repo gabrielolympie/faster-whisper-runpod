@@ -11,7 +11,7 @@ import os
 
 load_dotenv()
 
-model_path=os.getenv('MODEL_DIR')
+# model_path=os.getenv('MODEL_DIR')
 
 whisper_models = {
     "CPU":{
