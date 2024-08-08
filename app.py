@@ -10,7 +10,21 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
+
 model_path=os.getenv('MODEL_DIR')
+
+whisper_models = {
+    "CPU":{
+        "base" : faster_whisper.WhisperModel("base", device='cpu', compute_type="int8"),
+        "medium" : faster_whisper.WhisperModel("medium", device='cpu', compute_type="int8"),
+        "large" : faster_whisper.WhisperModel("large-v3", device='cpu', compute_type="int8")
+    },
+    "GPU":{
+        "base" : faster_whisper.WhisperModel("base", device='cuda', compute_type="int8_float16"),
+        "medium" : faster_whisper.WhisperModel("medium", device='cuda', compute_type="int8_float16"),
+        "large" : faster_whisper.WhisperModel("large-v3", device='cuda', compute_type="int8_float16")
+    }
+}
 
 class AudioMetadata(BaseModel):
     format: str
@@ -19,7 +33,7 @@ class AudioMetadata(BaseModel):
     sample_rate: int | None
     channels: int | None
 
-def get_audio_metadata(job):
+def get_audio_metadata(job, whisper_models=whisper_models):
     """ Handler function that will be used to process jobs. """
     job_input = job['input']
 
@@ -29,12 +43,8 @@ def get_audio_metadata(job):
     language = job_input['language']
     device = job_input['device']
 
-    if device=="GPU":
-        model = faster_whisper.WhisperModel(model_size, download_root=model_path, device='cuda', compute_type="int8_float16")
-    else:
-        model = faster_whisper.WhisperModel(model_size, download_root=model_path, device='cpu', compute_type="int8")
+    model = whisper_models[device][model_size]
 
-    
     segments, info = model.transcribe(
         file,
         beam_size=4,
